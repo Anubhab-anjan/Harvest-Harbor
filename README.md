@@ -5,10 +5,10 @@ Welcome to Harvest Harbor, an end-to-end solution designed to revolutionize farm
 Link - https://harvest-harbor.netlify.app/
 
 # Four Machine learning model
-1- [Crop Recomendation] - https://github.com/Rajesh-1234567/CROP-RECOMENDATION
-2- Plant disease detection - https://github.com/Rajesh-1234567/Plant-Disease_Detection
-3- Fertilizer prediction - https://github.com/Rajesh-1234567/Fertiliser_Prediction
-4- Crop yield prediction -  https://github.com/Rajesh-1234567/Crop-Yield-Prediction
+1- [Crop Recomendation] - https://github.com/Anubhab-anjan/CROP-RECOMENDATION
+2- Plant disease detection - https://github.com/Anubhab-anjan/Plant-Disease_Detection
+3- Fertilizer prediction - https://github.com/Anubhab-anjan/Fertiliser_Prediction
+4- Crop yield prediction -  https://github.com/Anubhab-anjan/Crop-Yield-Prediction
 ## Table of Contents
 # 1. [Introduction](#introduction)
 # 2. [Features](#features)
