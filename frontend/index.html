@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Harvest Harbor - Next-Gen Smart Agriculture Platform</title>
+  <link rel="shortcut icon" href="images/apple-touch-icon.png" type="image/x-icon">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icon Libraries -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.0.0/fonts/remixicon.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- Swiper Slider CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+  
+  <!-- Custom Modern Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Sidebar Overlay for Mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar close" id="sidebar">
+      <div class="sidebar-header">
+        <img src="images/apple-touch-icon.png" alt="Harvest Harbor Logo" class="sidebar-logo">
+        <span class="logo-text">Harvest Harbor</span>
+      </div>
+
+      <ul class="nav-links">
+        <li class="nav-item active">
+          <a href="#" class="nav-link" data-tooltip="Home">
+            <i class="bx bx-grid-alt"></i>
+            <span class="link-name">Home</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <div class="nav-link" id="servicesDropdownBtn" data-tooltip="AI Services">
+            <i class="bx bx-atom"></i>
+            <span class="link-name">AI Services</span>
+            <i class="bx bx-chevron-down arrow-icon"></i>
+          </div>
+          <ul class="sub-menu">
+            <li><a href="#services" onclick="openModal('disease')"><i class="bx bx-scan"></i> Plant Disease Detection</a></li>
+            <li><a href="#services" onclick="openModal('recommendation')"><i class="bx bx-landscape"></i> Crop Recommendation</a></li>
+            <li><a href="#services" onclick="openModal('fertilizer')"><i class="bx bx-test-tube"></i> Fertilizers Prediction</a></li>
+            <li><a href="#services" onclick="openModal('yield')"><i class="bx bx-bar-chart-alt-2"></i> Crop Yield Prediction</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a href="#agromart" class="nav-link" data-tooltip="AgroMart Shop">
+            <i class="bx bx-store-alt"></i>
+            <span class="link-name">AgroMart Shop</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#schemes" class="nav-link" data-tooltip="Govt Schemes">
+            <i class="bx bx-line-chart-down"></i>
+            <span class="link-name">Govt Schemes</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#about_us" class="nav-link" data-tooltip="About Platform">
+            <i class="bx bx-compass"></i>
+            <span class="link-name">About Platform</span>
+          </a>
+        </li>
+
+        <li class="nav-item">
+          <a href="#contact_us" class="nav-link" data-tooltip="Contact Support">
+            <i class="bx bx-envelope"></i>
+            <span class="link-name">Contact Support</span>
+          </a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Main View Content -->
+    <main class="main-content">
+      <!-- Sticky Top Header Bar -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="sidebar-toggle-btn" id="sidebarToggle" aria-label="Toggle Navigation Sidebar">
+            <i class="bx bx-menu"></i>
+          </button>
+          <div class="brand-title-badge">
+            <h1>Harvest Harbor</h1>
+            <span class="badge-tag">AI AGRI v2.0</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <div class="theme-switch-wrapper" id="headerThemeToggleBtn" role="button" title="Toggle Light / Dark Mode">
+            <div class="theme-switch-track">
+              <i class="fa-solid fa-sun track-icon sun-icon"></i>
+              <i class="fa-solid fa-moon track-icon moon-icon"></i>
+              <div class="theme-switch-knob">
+                <i class="fa-solid fa-sun knob-icon-sun"></i>
+                <i class="fa-solid fa-moon knob-icon-moon"></i>
+              </div>
+            </div>
+          </div>
+
+          <a href="#agromart" class="action-btn-primary">
+            <i class="bx bx-store-alt"></i>
+            <span>AgroMart Shop</span>
+          </a>
+          <button class="btn-secondary-glass" onclick="openCartModal()" style="display:flex; align-items:center; gap:6px;">
+            <i class="bx bx-shopping-bag" style="font-size:1.2rem; color:var(--accent-emerald-light);"></i>
+            <span>Cart</span>
+            <span class="cart-badge-count" id="headerCartCount">0</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Hero Section -->
+      <section class="hero-section">
+        <div class="hero-content">
+          <div class="hero-pill">
+            <i class="bx bxs-zap"></i>
+            <span>Next-Gen Machine Learning Agriculture</span>
+          </div>
+          <h1 class="hero-title">Cultivating Precision Agriculture for Maximum Yield</h1>
+          <p class="hero-description">
+            Empowering modern farmers with real-time AI disease diagnosis, personalized soil nutrition recommendations, yield forecasting models, and direct marketplace access.
+          </p>
+          <div class="hero-cta-group">
+            <a href="#services" class="action-btn-primary">
+              <i class="bx bx-sparkles"></i> Explore AI Tools
+            </a>
+            <a href="#agromart" class="btn-secondary-glass">
+              <i class="bx bx-store"></i> Browse AgroMart
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="swiper hero-swiper-container">
+            <div class="swiper-wrapper">
+              
+              <!-- Slide 1: Disease Detection -->
+              <div class="swiper-slide hero-slide">
+                <div class="hero-slide-img-wrapper">
+                  <img src="images/agri.jpg" alt="AI Disease Detection" class="hero-slide-img">
+                  <div class="hero-slide-overlay"></div>
+                </div>
+                <div class="glass-panel stat-floating-card">
+                  <div class="stat-icon-wrapper">
+                    <i class="fa-solid fa-microscope"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-number">98.4%</div>
+                    <div class="stat-label">Disease Detection Accuracy</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 2: Soil Nutrient AI -->
+              <div class="swiper-slide hero-slide">
+                <div class="hero-slide-img-wrapper">
+                  <img src="images/greenry.jpg" alt="Soil NPK Analytics" class="hero-slide-img">
+                  <div class="hero-slide-overlay"></div>
+                </div>
+                <div class="glass-panel stat-floating-card">
+                  <div class="stat-icon-wrapper">
+                    <i class="fa-solid fa-seedling"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Precision Soil NPK Guidance</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 3: Farmer Empowerment -->
+              <div class="swiper-slide hero-slide">
+                <div class="hero-slide-img-wrapper">
+                  <img src="images/cont.jpg" alt="Farmers Empowered" class="hero-slide-img">
+                  <div class="hero-slide-overlay"></div>
+                </div>
+                <div class="glass-panel stat-floating-card">
+                  <div class="stat-icon-wrapper">
+                    <i class="fa-solid fa-users"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-number">50,000+</div>
+                    <div class="stat-label">Farmers Empowered Nationally</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Slide 4: AgroMart Shop -->
+              <div class="swiper-slide hero-slide">
+                <div class="hero-slide-img-wrapper">
+                  <img src="images/bgpic.jpg" alt="Direct AgroMart Shop" class="hero-slide-img">
+                  <div class="hero-slide-overlay"></div>
+                </div>
+                <div class="glass-panel stat-floating-card">
+                  <div class="stat-icon-wrapper">
+                    <i class="fa-solid fa-store"></i>
+                  </div>
+                  <div class="stat-info">
+                    <div class="stat-number">₹0 Fees</div>
+                    <div class="stat-label">Direct Farmer Marketplace</div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Slider Pagination Dots -->
+            <div class="swiper-pagination hero-swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- AI Services Section -->
+      <section class="content-section" id="services">
+        <div class="section-header">
+          <span class="section-subtitle">INTELLIGENT FARMING SUITE</span>
+          <h2 class="section-title">AI-Powered Agricultural Services</h2>
+          <p class="section-desc">Select any of our machine learning tools below to launch interactive diagnostics and smart field recommendations.</p>
+        </div>
+
+        <div class="services-container">
+          <div class="swiper services-swiper-container">
+            <div class="swiper-wrapper">
+              
+              <!-- Card 1: Disease Detection -->
+              <div class="swiper-slide">
+                <div class="glass-panel service-card">
+                  <div class="service-img-wrapper">
+                    <img src="images/disease.jpg" alt="Plant Disease Detection">
+                    <span class="service-badge">Vision AI</span>
+                  </div>
+                  <div class="service-body">
+                    <h3 class="service-title">Plant Disease Detection</h3>
+                    <p class="service-text">Instant neural network diagnosis of crop leaf lesions, fungal infections, and nutritional deficiencies with treatment guides.</p>
+                    <button class="service-btn" onclick="openModal('disease')">
+                      <i class="bx bx-scan"></i> Launch AI Detector
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Crop Recommendation -->
+              <div class="swiper-slide">
+                <div class="glass-panel service-card">
+                  <div class="service-img-wrapper">
+                    <img src="images/cropreccom_50.jpg" alt="Crop Recommendation">
+                    <span class="service-badge">Soil AI</span>
+                  </div>
+                  <div class="service-body">
+                    <h3 class="service-title">Crop Recommendations</h3>
+                    <p class="service-text">Analyze N-P-K soil nutrients, pH levels, rainfall, and climate parameters to discover optimal high-yield crops.</p>
+                    <button class="service-btn" onclick="openModal('recommendation')">
+                      <i class="bx bx-landscape"></i> Get Recommendation
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: Crop Yield Prediction -->
+              <div class="swiper-slide">
+                <div class="glass-panel service-card">
+                  <div class="service-img-wrapper">
+                    <img src="images/cropyeild_50.webp" alt="Crop Yield Prediction">
+                    <span class="service-badge">Forecast Model</span>
+                  </div>
+                  <div class="service-body">
+                    <h3 class="service-title">Crop Yield Prediction</h3>
+                    <p class="service-text">Accurate harvest volume predictions based on historical weather patterns, soil health metrics, and farm acreage.</p>
+                    <button class="service-btn" onclick="openModal('yield')">
+                      <i class="bx bx-bar-chart-alt-2"></i> Predict Harvest Yield
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Fertilizer Prediction -->
+              <div class="swiper-slide">
+                <div class="glass-panel service-card">
+                  <div class="service-img-wrapper">
+                    <img src="images/ferti.jpg" alt="Fertilizers Prediction">
+                    <span class="service-badge">Nutrient Optimizer</span>
+                  </div>
+                  <div class="service-body">
+                    <h3 class="service-title">Fertilizer Predictor</h3>
+                    <p class="service-text">Tailored fertilizer formulations and precise dosage advice to prevent soil degradation and maximize plant growth.</p>
+                    <button class="service-btn" onclick="openModal('fertilizer')">
+                      <i class="bx bx-test-tube"></i> Calculate Fertilizer
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Embedded AgroMart E-Commerce Marketplace -->
+      <section class="content-section" id="agromart">
+        <div class="section-header">
+          <span class="section-subtitle">NATIVE E-COMMERCE HUB</span>
+          <h2 class="section-title">AgroMart Direct Marketplace</h2>
+          <p class="section-desc">Buy certified seeds, organic fertilizers, & smart farm equipment — or list your harvested produce for direct sale with zero middleman markups.</p>
+        </div>
+
+        <div class="glass-panel agromart-hero-bar">
+          <div class="agromart-hero-text">
+            <h3><i class="bx bx-store-alt" style="color:var(--accent-emerald-light);"></i> AgroMart Marketplace</h3>
+            <p>100% Certified Products • Zero Brokerage Commission • Direct Farmer Sales</p>
+          </div>
+          <div class="agromart-actions-group">
+            <button class="action-btn-primary" onclick="openSellProduceModal()">
+              <i class="bx bx-plus-circle"></i> Sell Harvest Produce
+            </button>
+            <button class="btn-secondary-glass" onclick="openCartModal()" style="display:flex; align-items:center; gap:8px;">
+              <i class="bx bx-shopping-bag" style="font-size:1.2rem; color:var(--accent-emerald-light);"></i> View Cart (<span id="agromartCartCount">0</span>)
+            </button>
+          </div>
+        </div>
+
+        <!-- Search & Filter Controls -->
+        <div class="agromart-controls-bar">
+          <div class="agromart-search-box">
+            <i class="bx bx-search search-icon"></i>
+            <input type="text" id="agromartSearchInput" placeholder="Search seeds, fertilizers, equipment, produce..." oninput="filterAgroMartProducts()">
+          </div>
+
+          <div class="agromart-categories">
+            <button class="filter-pill active" onclick="setAgroCategory('all', this)">All Items</button>
+            <button class="filter-pill" onclick="setAgroCategory('seeds', this)">Seeds & Grains</button>
+            <button class="filter-pill" onclick="setAgroCategory('fertilizer', this)">Bio-Fertilizers</button>
+            <button class="filter-pill" onclick="setAgroCategory('equipment', this)">Smart Tech & Solar</button>
+            <button class="filter-pill" onclick="setAgroCategory('produce', this)">Farmer Harvest Produce</button>
+          </div>
+        </div>
+
+        <!-- Product Cards Grid -->
+        <div class="agromart-products-grid" id="agromartProductsGrid">
+          <!-- Dynamically populated via script.js -->
+        </div>
+      </section>
+
+      <!-- Government Schemes Catalog -->
+      <section class="content-section schemes-section" id="schemes">
+        <div class="section-header">
+          <span class="section-subtitle">FINANCIAL SUPPORT & SUBSIDIES</span>
+          <h2 class="section-title">Government Agriculture Schemes</h2>
+          <p class="section-desc">Access direct government portal links for farmer subsidies, low-interest crop loans, and market intervention policies.</p>
+        </div>
+
+        <div class="schemes-grid">
+          <!-- Scheme 1 -->
+          <div class="glass-panel scheme-card">
+            <div class="scheme-header">
+              <img src="images/pm-kisan-1080x556px-01.jpg" alt="PM-Kisan" class="scheme-img-thumb">
+              <div class="scheme-title-box">
+                <h3>PM-KISAN Scheme</h3>
+                <span class="scheme-tag">Direct Income Support</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem; color:var(--text-muted);">Direct income transfer of ₹6,000 per year to all landholding farmer families across India.</p>
+            <a href="https://pmkisan.gov.in/" target="_blank" class="scheme-link-btn">
+              Apply via PM-Kisan Portal <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </div>
+
+          <!-- Scheme 2 -->
+          <div class="glass-panel scheme-card">
+            <div class="scheme-header">
+              <img src="images/ISS.jpeg" alt="Interest Subvention Scheme" class="scheme-img-thumb">
+              <div class="scheme-title-box">
+                <h3>Interest Subvention (ISS)</h3>
+                <span class="scheme-tag">Credit & Loans</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem; color:var(--text-muted);">Concessional short-term crop loans up to ₹3 Lakh at attractive subsidized interest rates via NABARD.</p>
+            <a href="https://www.nabard.org/content1.aspx?id=602&catid=23&mid=23" target="_blank" class="scheme-link-btn">
+              NABARD Scheme Details <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </div>
+
+          <!-- Scheme 3 -->
+          <div class="glass-panel scheme-card">
+            <div class="scheme-header">
+              <img src="images/MIS.jpg" alt="Market Intervention Scheme" class="scheme-img-thumb">
+              <div class="scheme-title-box">
+                <h3>Market Intervention (MIS)</h3>
+                <span class="scheme-tag">Price Protection</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem; color:var(--text-muted);">Price support mechanism protecting horticultural produce growers against market distress sales.</p>
+            <a href="http://www.arthapedia.in/index.php/Market_Intervention_Scheme_(MIS)" target="_blank" class="scheme-link-btn">
+              Read MIS Policy Guidelines <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </div>
+
+          <!-- Scheme 4 -->
+          <div class="glass-panel scheme-card">
+            <div class="scheme-header">
+              <img src="images/rkvy-Photoroom.png" alt="RKVY Scheme" class="scheme-img-thumb">
+              <div class="scheme-title-box">
+                <h3>RKVY Scheme</h3>
+                <span class="scheme-tag">Infrastructure Development</span>
+              </div>
+            </div>
+            <p style="font-size:0.88rem; color:var(--text-muted);">Rashtriya Krishi Vikas Yojana supporting holistic agricultural development and agri-entrepreneurship.</p>
+            <a href="https://rkvy.nic.in/" target="_blank" class="scheme-link-btn">
+              RKVY Official Portal <i class="bx bx-right-arrow-alt"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="glass-panel scheme-footer-banner">
+          <div>
+            <h4 style="font-family:var(--font-heading); font-size:1.1rem;">Explore All Official Agri Schemes</h4>
+            <p style="font-size:0.88rem; color:var(--text-muted);">View complete PIB press releases and updated central/state farmer assistance programs.</p>
+          </div>
+          <a href="https://pib.gov.in/PressReleaseIframePage.aspx?PRID=2002012" target="_blank" class="action-btn-primary">
+            <i class="bx bx-news"></i> View PIB Directory
+          </a>
+        </div>
+      </section>
+
+      <!-- About Us Section -->
+      <section class="content-section" id="about_us">
+        <div class="about-grid">
+          <div class="about-text">
+            <span class="section-subtitle">OUR MISSION</span>
+            <h2 class="section-title">Empowering Agriculture with Cutting-Edge AI</h2>
+            <p>
+              At <strong>Harvest Harbor</strong>, we bridge the gap between traditional farming wisdom and modern data science. Our mission is to democratize machine learning tools so every farmer can make informed decisions, minimize crop losses, and maximize profitability.
+            </p>
+            <p>
+              By combining computer vision, predictive weather analytics, and agronomic modeling, Harvest Harbor provides end-to-end guidance from seed selection to post-harvest sales.
+            </p>
+            <ul class="about-features-list">
+              <li>
+                <i class="bx bx-check-shield"></i>
+                <span><strong>Real-time AI Diagnosis:</strong> Detect crop pathogens early to reduce pesticide over-application.</span>
+              </li>
+              <li>
+                <i class="bx bx-trending-up"></i>
+                <span><strong>Smart Nutrient Optimization:</strong> Precision fertilizer dosing aligned with soil parameters.</span>
+              </li>
+              <li>
+                <i class="bx bx-cart-alt"></i>
+                <span><strong>Seamless Commerce:</strong> Direct AgroMart marketplace integration linking farmers with fair markets.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="glass-panel about-visual-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.3rem;">Harvest Harbor Core Stack</h3>
+            <p style="font-size:0.9rem; color:var(--text-muted);">Powered by advanced machine learning models trained on millions of agricultural datapoints across diverse climate zones.</p>
+
+            <div class="tech-stack-pills">
+              <span class="tech-tag">Deep Convolutional Neural Networks</span>
+              <span class="tech-tag">Random Forest Soil Regressors</span>
+              <span class="tech-tag">Weather Pattern Analytics</span>
+              <span class="tech-tag">AgroMart Native E-Commerce Engine</span>
+            </div>
+
+            <div style="margin-top:10px; padding:16px; background:rgba(16, 185, 129, 0.08); border-radius:var(--radius-md); border:1px solid var(--accent-emerald);">
+              <div style="font-weight:600; color:var(--accent-emerald-light); margin-bottom:4px;">100% Free & Open Access</div>
+              <div style="font-size:0.85rem; color:var(--text-muted);">Designed for smallholder farmers, agronomists, and agricultural cooperatives nationwide.</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contact Us Section -->
+      <section class="content-section" id="contact_us">
+        <div class="section-header">
+          <span class="section-subtitle">GET IN TOUCH</span>
+          <h2 class="section-title">Contact Our Agronomy Experts</h2>
+          <p class="section-desc">Have questions about our AI models, government schemes, or marketplace listings? Send us a message below.</p>
+        </div>
+
+        <div class="glass-panel contact-container">
+          <form action="https://api.web3forms.com/submit" method="POST" id="contactForm">
+            <input type="hidden" name="access_key" value="59c721a4-1bff-4af1-8aff-7def3492b810">
+            <input type="hidden" name="subject" value="Harvest Harbor - New Contact Form Inquiry">
+            <input type="hidden" name="from_name" value="Harvest Harbor Platform">
+            <input type="hidden" name="send_to" value="anubhabanjan@gmail.com">
+
+            <div class="form-group-row">
+              <div class="form-field">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" placeholder="John" required>
+              </div>
+
+              <div class="form-field">
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" placeholder="Doe" required>
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="john@example.com" required>
+            </div>
+
+            <div class="form-field">
+              <label for="message">Your Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="How can Harvest Harbor assist your farm?" required></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">
+              <i class="bx bx-paper-plane"></i> Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <div class="footer-socials">
+            <a href="https://www.facebook.com/profile.php?id=61557025734719" target="_blank" class="social-icon-btn" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/harvest_harbor/" target="_blank" class="social-icon-btn" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://twitter.com/harvest_ha4080" target="_blank" class="social-icon-btn" aria-label="X Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+          </div>
+
+          <ul class="footer-links">
+            <li><a href="#services">Our AI Services</a></li>
+            <li><a href="#agromart">AgroMart Shop</a></li>
+            <li><a href="#schemes">Government Schemes</a></li>
+            <li><a href="#about_us">About Us</a></li>
+            <li><a href="images/Privacy Policy for Harvest-Harbor.pdf" target="_blank">Privacy Policy</a></li>
+            <li><a href="images/Terms and Conditions for Harvest-Harbor.pdf" target="_blank">Terms & Conditions</a></li>
+          </ul>
+
+          <div class="footer-copyright">
+            © 2026 Harvest Harbor. All rights reserved. Cultivating Sustainable Smart Agriculture.
+          </div>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Interactive AI Tool Modal Backdrop -->
+  <div class="modal-backdrop" id="aiModalBackdrop">
+    <div class="glass-panel modal-window">
+      <button class="modal-close-btn" id="modalCloseBtn" onclick="closeModal()">
+        <i class="bx bx-x"></i>
+      </button>
+      <h3 class="modal-header-title" id="modalTitle">AI Tool Simulator</h3>
+      <p style="font-size:0.9rem; color:var(--text-muted);" id="modalSubtitle">Input field data to receive real-time prediction output.</p>
+
+      <div class="modal-body-content" id="modalBody">
+        <!-- Dynamic Content injected via script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Shopping Cart Modal Drawer -->
+  <div class="modal-backdrop" id="cartModalBackdrop">
+    <div class="glass-panel modal-window cart-modal-window">
+      <button class="modal-close-btn" onclick="closeCartModal()">
+        <i class="bx bx-x"></i>
+      </button>
+      <h3 class="modal-header-title"><i class="bx bx-shopping-bag" style="color:var(--accent-emerald-light);"></i> AgroMart Shopping Cart</h3>
+      <p style="font-size:0.9rem; color:var(--text-muted);">Review your selected agricultural items and complete checkout.</p>
+
+      <div id="cartModalBody" style="margin-top:16px;">
+        <!-- Cart items list dynamically injected -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Sell Produce / Farmer Listing Modal -->
+  <div class="modal-backdrop" id="sellProduceModalBackdrop">
+    <div class="glass-panel modal-window">
+      <button class="modal-close-btn" onclick="closeSellProduceModal()">
+        <i class="bx bx-x"></i>
+      </button>
+      <h3 class="modal-header-title"><i class="bx bx-store-alt" style="color:var(--accent-emerald-light);"></i> Sell Harvest Produce on AgroMart</h3>
+      <p style="font-size:0.9rem; color:var(--text-muted);">List your crop harvest directly to thousands of verified buyers nationwide.</p>
+
+      <form id="sellProduceForm" onsubmit="handleSellProduceSubmit(event)" style="margin-top:16px;">
+        <div class="ai-form-group">
+          <label>Crop / Produce Title:</label>
+          <input type="text" class="ai-input-field" placeholder="e.g. Organic Sharbati Wheat Harvest" required id="sellTitle">
+        </div>
+
+        <div class="ai-input-grid">
+          <div class="ai-form-group">
+            <label>Category:</label>
+            <select class="ai-input-field" id="sellCategory">
+              <option value="produce">Harvest Produce</option>
+              <option value="seeds">Seeds & Grains</option>
+              <option value="fertilizer">Bio-Fertilizer</option>
+              <option value="equipment">Farm Equipment</option>
+            </select>
+          </div>
+          <div class="ai-form-group">
+            <label>Price per Unit (₹):</label>
+            <input type="number" class="ai-input-field" placeholder="2450" required id="sellPrice">
+          </div>
+        </div>
+
+        <div class="ai-input-grid">
+          <div class="ai-form-group">
+            <label>Quantity Available:</label>
+            <input type="text" class="ai-input-field" placeholder="e.g. 50 Quintals" required id="sellQty">
+          </div>
+          <div class="ai-form-group">
+            <label>Location / District:</label>
+            <input type="text" class="ai-input-field" placeholder="e.g. Punjab / MP" required id="sellLocation">
+          </div>
+        </div>
+
+        <div class="ai-form-group">
+          <label>Farmer Contact Number:</label>
+          <input type="tel" class="ai-input-field" placeholder="+91 9876543210" required id="sellPhone">
+        </div>
+
+        <button type="submit" class="action-btn-primary" style="width:100%; justify-content:center; margin-top:12px;">
+          <i class="bx bx-check-circle"></i> Publish AgroMart Listing
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Element -->
+  <div class="toast-notification" id="toastNotification">
+    <i class="bx bx-check-circle" style="font-size:1.5rem; color:var(--accent-emerald-light);"></i>
+    <span id="toastText">Action completed successfully!</span>
+  </div>
+
+  <!-- External JS Dependencies -->
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Custom Application Logic -->
+  <script src="script.js"></script>
+</body>
+</html>

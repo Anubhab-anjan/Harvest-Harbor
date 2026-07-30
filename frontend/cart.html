@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart & Checkout - AgroMart | Harvest Harbor</title>
+  <link rel="shortcut icon" href="images/apple-touch-icon.png" type="image/x-icon">
+  
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Icon Libraries -->
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Dedicated Cart Page Enhancements */
+    .cart-page-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px 60px;
+    }
+    .cart-grid-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 28px;
+    }
+    @media (max-width: 992px) {
+      .cart-grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    .cart-section-card {
+      margin-bottom: 24px;
+      padding: 24px;
+    }
+    .detect-loc-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--accent-emerald-light);
+      color: var(--accent-emerald-light);
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+    .detect-loc-btn:hover {
+      background: var(--accent-emerald);
+      color: #000000;
+    }
+    .payment-option-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-md);
+      background: rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: all var(--transition-fast);
+    }
+    .payment-option-card:hover, .payment-option-card.selected {
+      border-color: var(--accent-emerald-light);
+      background: rgba(16, 185, 129, 0.08);
+    }
+    .payment-option-card input[type="radio"] {
+      accent-color: var(--accent-emerald-light);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container" style="display:block;">
+    <!-- Sticky Top Navigation Bar -->
+    <header class="top-header" style="position:sticky; top:0; z-index:100; padding:0 30px;">
+      <div class="header-left">
+        <a href="index.html" style="display:flex; align-items:center; gap:10px;">
+          <img src="images/apple-touch-icon.png" alt="Harvest Harbor Logo" style="width:36px; height:36px;">
+          <div class="brand-title-badge">
+            <h1 style="font-size:1.2rem;">Harvest Harbor</h1>
+            <span class="badge-tag">AGROMART SHOP</span>
+          </div>
+        </a>
+      </div>
+
+      <div class="header-right" style="gap:16px;">
+        <div class="theme-switch-wrapper" id="themeToggleBtn" role="button" title="Toggle Light / Dark Mode">
+          <div class="theme-switch-track">
+            <i class="fa-solid fa-sun track-icon sun-icon"></i>
+            <i class="fa-solid fa-moon track-icon moon-icon"></i>
+            <div class="theme-switch-knob">
+              <i class="fa-solid fa-sun knob-icon-sun"></i>
+              <i class="fa-solid fa-moon knob-icon-moon"></i>
+            </div>
+          </div>
+        </div>
+
+        <a href="index.html#agromart" class="btn-secondary-glass">
+          <i class="bx bx-left-arrow-alt"></i> Back to AgroMart
+        </a>
+      </div>
+    </header>
+
+    <div class="cart-page-container">
+      <div class="section-header" style="text-align:left; margin-bottom:24px;">
+        <span class="section-subtitle">SECURE E-COMMERCE CHECKOUT</span>
+        <h2 class="section-title">Your AgroMart Shopping Cart & Delivery</h2>
+        <p class="section-desc">Review cart items, auto-detect your delivery address, and complete your order.</p>
+      </div>
+
+      <div class="cart-grid-layout">
+        <!-- Left Column: Items, Address, Payment -->
+        <div class="cart-left-col">
+          <!-- 1. Cart Items List -->
+          <div class="glass-panel cart-section-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.2rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+              <i class="bx bx-shopping-bag" style="color:var(--accent-emerald-light);"></i> Cart Items (<span id="cartCountTitle">0</span>)
+            </h3>
+
+            <div id="cartItemsList">
+              <!-- Dynamically populated via cart.js -->
+            </div>
+          </div>
+
+          <!-- 2. Delivery & Customer Address Form with Auto-Location -->
+          <div class="glass-panel cart-section-card">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px;">
+              <h3 style="font-family:var(--font-heading); font-size:1.2rem; display:flex; align-items:center; gap:8px;">
+                <i class="bx bx-map-pin" style="color:var(--accent-emerald-light);"></i> Delivery & Customer Details
+              </h3>
+
+              <button class="detect-loc-btn" onclick="detectUserLocation()">
+                <i class="bx bx-target-lock" style="font-size:1.1rem;"></i> Auto-Detect My Location
+              </button>
+            </div>
+
+            <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+              <div class="form-group-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px;">
+                <div class="form-field">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" class="ai-input-field" placeholder="e.g. Ramesh Kumar" required>
+                </div>
+                <div class="form-field">
+                  <label for="phone">Mobile Number *</label>
+                  <input type="tel" id="phone" class="ai-input-field" placeholder="e.g. +91 98765 43210" required>
+                </div>
+              </div>
+
+              <div class="form-group-row" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:14px;">
+                <div class="form-field">
+                  <label for="email">Email Address (Optional)</label>
+                  <input type="email" id="email" class="ai-input-field" placeholder="ramesh@example.com">
+                </div>
+                <div class="form-field">
+                  <label for="addressType">Address Type</label>
+                  <select id="addressType" class="ai-input-field">
+                    <option value="Farm">Farm / Agricultural Land</option>
+                    <option value="Home">Home Residence</option>
+                    <option value="Warehouse">Agri Warehouse / Cooperative</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-field" style="margin-bottom:14px;">
+                <label for="streetAddress">Street Address / House / Village *</label>
+                <input type="text" id="streetAddress" class="ai-input-field" placeholder="House No, Village/Tehsil, Main Road" required>
+              </div>
+
+              <div class="form-group-row" style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:14px;">
+                <div class="form-field">
+                  <label for="city">City / District *</label>
+                  <input type="text" id="city" class="ai-input-field" placeholder="District" required>
+                </div>
+                <div class="form-field">
+                  <label for="state">State *</label>
+                  <input type="text" id="state" class="ai-input-field" placeholder="State" required>
+                </div>
+                <div class="form-field">
+                  <label for="pincode">Pincode / ZIP *</label>
+                  <input type="text" id="pincode" class="ai-input-field" placeholder="6-digit Pincode" required>
+                </div>
+              </div>
+
+              <div class="form-field" style="margin-bottom:14px;">
+                <label for="deliveryNotes">Delivery Instructions / Landmark</label>
+                <textarea id="deliveryNotes" class="ai-input-field" rows="2" placeholder="e.g. Near Community Tubewell, deliver between 8 AM - 6 PM"></textarea>
+              </div>
+            </form>
+          </div>
+
+          <!-- 3. Payment Method Selection -->
+          <div class="glass-panel cart-section-card">
+            <h3 style="font-family:var(--font-heading); font-size:1.2rem; margin-bottom:16px; display:flex; align-items:center; gap:8px;">
+              <i class="bx bx-credit-card" style="color:var(--accent-emerald-light);"></i> Select Payment Method
+            </h3>
+
+            <div class="payment-option-card selected" onclick="selectPaymentMethod(this, 'upi')">
+              <input type="radio" name="paymentMethod" value="upi" checked>
+              <i class="bx bx-qr-scan" style="font-size:1.4rem; color:var(--accent-emerald-light);"></i>
+              <div>
+                <strong style="color:var(--text-main);">Instant UPI / QR Code</strong>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Google Pay, PhonePe, Paytm, BHIM UPI</div>
+              </div>
+            </div>
+
+            <div class="payment-option-card" onclick="selectPaymentMethod(this, 'cod')">
+              <input type="radio" name="paymentMethod" value="cod">
+              <i class="bx bx-money" style="font-size:1.4rem; color:var(--accent-emerald-light);"></i>
+              <div>
+                <strong style="color:var(--text-main);">Cash on Delivery (COD)</strong>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Pay cash upon physical delivery to your farm</div>
+              </div>
+            </div>
+
+            <div class="payment-option-card" onclick="selectPaymentMethod(this, 'kisan_card')">
+              <input type="radio" name="paymentMethod" value="kisan_card">
+              <i class="bx bx-credit-card-front" style="font-size:1.4rem; color:var(--accent-emerald-light);"></i>
+              <div>
+                <strong style="color:var(--text-main);">Kisan Credit Card (KCC) / Debit Card</strong>
+                <div style="font-size:0.8rem; color:var(--text-muted);">Government Subsidized Farmer Card Payment</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Order Summary & Place Order -->
+        <div class="cart-right-col">
+          <div class="glass-panel cart-section-card" style="position:sticky; top:90px;">
+            <h3 style="font-family:var(--font-heading); font-size:1.2rem; margin-bottom:16px;">
+              Order Summary
+            </h3>
+
+            <div style="margin-bottom:16px;">
+              <div class="cart-summary-line">
+                <span>Items Subtotal:</span>
+                <span id="subtotalVal">₹0</span>
+              </div>
+              <div class="cart-summary-line">
+                <span>Agro Delivery Fee:</span>
+                <span style="color:var(--accent-emerald-light); font-weight:600;">FREE</span>
+              </div>
+              <div class="cart-summary-line" style="color:var(--accent-emerald-light);">
+                <span>Farmer Direct Discount (5%):</span>
+                <span id="discountVal">-₹0</span>
+              </div>
+              <div class="cart-summary-line">
+                <span>Estimated GST (18% Included):</span>
+                <span id="gstVal">₹0</span>
+              </div>
+              <div class="cart-summary-total">
+                <span>Total Amount:</span>
+                <span id="totalVal" style="color:var(--accent-emerald-light);">₹0</span>
+              </div>
+            </div>
+
+            <!-- Coupon Code Box -->
+            <div style="margin-bottom:16px; display:flex; gap:8px;">
+              <input type="text" id="couponCode" class="ai-input-field" placeholder="Coupon (e.g. HARVEST10)" style="font-size:0.85rem; padding:8px 12px;">
+              <button type="button" class="btn-secondary-glass" onclick="applyCoupon()" style="padding:8px 12px; font-size:0.85rem; white-space:nowrap;">
+                Apply
+              </button>
+            </div>
+
+            <button type="button" class="action-btn-primary" style="width:100%; justify-content:center; padding:14px; font-size:1rem;" onclick="submitCheckoutForm()">
+              <i class="bx bx-check-circle"></i> Place Order & Pay
+            </button>
+
+            <div style="margin-top:16px; font-size:0.8rem; color:var(--text-muted); text-align:center;">
+              <i class="bx bx-shield-check" style="color:var(--accent-emerald-light);"></i> 100% Encrypted & Safe Checkout
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal Receipt -->
+  <div class="modal-backdrop" id="orderConfirmBackdrop">
+    <div class="glass-panel modal-window" style="max-width:550px; text-align:center;">
+      <div style="width:64px; height:64px; background:rgba(16, 185, 129, 0.2); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
+        <i class="bx bx-check" style="font-size:2.8rem; color:var(--accent-emerald-light);"></i>
+      </div>
+      <h3 style="font-family:var(--font-heading); font-size:1.4rem; color:var(--text-main); margin-bottom:6px;">Order Placed Successfully!</h3>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:16px;">Thank you for ordering on AgroMart. Your order details are below.</p>
+
+      <div style="text-align:left; background:rgba(0,0,0,0.3); padding:16px; border-radius:var(--radius-md); margin-bottom:20px; font-size:0.88rem;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>Order ID:</strong> <span id="confirmOrderId" style="color:var(--accent-emerald-light); font-weight:700;">#HH-84921</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>Customer:</strong> <span id="confirmCustomer">Ramesh Kumar</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>Delivery Address:</strong> <span id="confirmAddress">Farm Land, Punjab</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>Payment Mode:</strong> <span id="confirmPayment">Instant UPI</span>
+        </div>
+        <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+          <strong>Total Paid:</strong> <span id="confirmTotal" style="color:var(--accent-emerald-light); font-weight:700;">₹0</span>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:12px; justify-content:center;">
+        <a href="index.html#agromart" class="action-btn-primary">
+          <i class="bx bx-store-alt"></i> Continue Shopping
+        </a>
+        <button class="btn-secondary-glass" onclick="window.print()">
+          <i class="bx bx-printer"></i> Print Invoice
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast-notification" id="toastNotification">
+    <i class="bx bx-check-circle" style="font-size:1.5rem; color:var(--accent-emerald-light);"></i>
+    <span id="toastText">Action completed successfully!</span>
+  </div>
+
+  <script src="cart.js"></script>
+</body>
+</html>
