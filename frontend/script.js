@@ -2,7 +2,9 @@
    Harvest Harbor - Core Interactive Application & Native AgroMart Engine
    ========================================================================== */
 
-const API_BASE_URL = "http://127.0.0.1:5000/api";
+const API_BASE_URL = (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost")
+  ? "http://127.0.0.1:5000/api"
+  : "/api";
 let backendMetadata = null;
 
 // --- AgroMart E-Commerce State ---
