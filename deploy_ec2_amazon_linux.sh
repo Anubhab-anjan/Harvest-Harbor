@@ -38,7 +38,7 @@ pip install gunicorn
 echo "--> Creating Systemd Service for Flask Backend..."
 USER_NAME=$(whoami)
 
-sudo bash -c "cat <<EOF > /etc/systemd/system/harvest-harbor.service
+sudo tee /etc/systemd/system/harvest-harbor.service > /dev/null << EOF
 [Unit]
 Description=Harvest Harbor Flask ML REST API
 After=network.target
@@ -46,13 +46,13 @@ After=network.target
 [Service]
 User=$USER_NAME
 WorkingDirectory=$BACKEND_DIR
-Environment=\"PATH=$BACKEND_DIR/venv/bin\"
+Environment="PATH=$BACKEND_DIR/venv/bin"
 ExecStart=$BACKEND_DIR/venv/bin/gunicorn --workers 3 --bind 127.0.0.1:5000 app:app
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
-EOF"
+EOF
 
 sudo systemctl daemon-reload
 sudo systemctl restart harvest-harbor
@@ -62,7 +62,7 @@ sudo systemctl enable harvest-harbor
 echo "--> Configuring Nginx Reverse Proxy & Static Frontend..."
 
 # Amazon Linux loads /etc/nginx/conf.d/*.conf
-sudo bash -c "cat <<EOF > /etc/nginx/conf.d/harvest-harbor.conf
+sudo tee /etc/nginx/conf.d/harvest-harbor.conf > /dev/null << EOF
 server {
     listen 80 default_server;
     server_name _;
@@ -82,7 +82,7 @@ server {
         client_max_body_size 10M;
     }
 }
-EOF"
+EOF
 
 sudo nginx -t
 sudo systemctl restart nginx
