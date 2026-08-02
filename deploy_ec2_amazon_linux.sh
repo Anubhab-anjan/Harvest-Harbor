@@ -15,8 +15,7 @@ else
 fi
 
 echo "--> Installing system packages via $PKG_MGR..."
-sudo $PKG_MGR update -y
-sudo $PKG_MGR install -y python3 python3-pip python3-devel gcc nginx git curl
+sudo $PKG_MGR install --allowerasing -y python3 python3-pip python3-devel gcc nginx git
 
 # Ensure home directory permission allows Nginx worker to read static files
 chmod 755 /home/ec2-user
