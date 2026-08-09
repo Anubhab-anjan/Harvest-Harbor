@@ -1,22 +1,43 @@
 {
   "version": 2,
-  "cleanUrls": true,
-  "rewrites": [
+  "builds": [
     {
-      "source": "/cart",
-      "destination": "/frontend/cart.html"
+      "src": "frontend/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/cart.html",
+      "dest": "/frontend/cart.html"
     },
     {
-      "source": "/cart.html",
-      "destination": "/frontend/cart.html"
+      "src": "/cart",
+      "dest": "/frontend/cart.html"
     },
     {
-      "source": "/index.html",
-      "destination": "/frontend/index.html"
+      "src": "/index.html",
+      "dest": "/frontend/index.html"
     },
     {
-      "source": "/(.*)",
-      "destination": "/frontend/$1"
+      "src": "/styles.css",
+      "dest": "/frontend/styles.css"
+    },
+    {
+      "src": "/script.js",
+      "dest": "/frontend/script.js"
+    },
+    {
+      "src": "/cart.js",
+      "dest": "/frontend/cart.js"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/frontend/images/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/$1"
     }
   ]
 }
