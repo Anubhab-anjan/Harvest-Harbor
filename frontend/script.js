@@ -844,26 +844,52 @@ function runCropRecommendation() {
     })
     .catch((err) => {
       console.warn("Using smart client engine for crop recommendation:", err);
+
+      const CROP_DATASET_PROFILES = [
+        { name: "Apple", N: 20.8, P: 134.2, K: 199.9, temp: 22.6, humidity: 92.3, ph: 5.9, rainfall: 112.6 },
+        { name: "Banana", N: 100.2, P: 82.0, K: 50.1, temp: 27.4, humidity: 80.4, ph: 6.0, rainfall: 104.6 },
+        { name: "Blackgram", N: 40.0, P: 67.5, K: 19.2, temp: 30.0, humidity: 65.1, ph: 7.1, rainfall: 67.9 },
+        { name: "Chickpea", N: 40.1, P: 67.8, K: 79.9, temp: 18.9, humidity: 16.9, ph: 7.3, rainfall: 80.1 },
+        { name: "Coconut", N: 22.0, P: 16.9, K: 30.6, temp: 27.4, humidity: 94.8, ph: 6.0, rainfall: 175.7 },
+        { name: "Coffee", N: 101.2, P: 28.7, K: 29.9, temp: 25.5, humidity: 58.9, ph: 6.8, rainfall: 158.1 },
+        { name: "Cotton", N: 117.8, P: 46.2, K: 19.6, temp: 24.0, humidity: 79.8, ph: 6.9, rainfall: 80.4 },
+        { name: "Grapes", N: 23.2, P: 132.5, K: 200.1, temp: 23.9, humidity: 81.9, ph: 6.0, rainfall: 69.6 },
+        { name: "Jute", N: 78.4, P: 46.9, K: 40.0, temp: 25.0, humidity: 79.6, ph: 6.7, rainfall: 174.8 },
+        { name: "Kidneybeans", N: 20.8, P: 67.5, K: 20.1, temp: 20.1, humidity: 21.6, ph: 5.8, rainfall: 105.9 },
+        { name: "Lentil", N: 18.8, P: 68.4, K: 19.4, temp: 24.5, humidity: 64.8, ph: 6.9, rainfall: 45.7 },
+        { name: "Maize", N: 77.8, P: 48.4, K: 19.8, temp: 22.4, humidity: 65.1, ph: 6.3, rainfall: 84.8 },
+        { name: "Mango", N: 20.1, P: 27.2, K: 29.9, temp: 31.2, humidity: 50.2, ph: 5.8, rainfall: 94.7 },
+        { name: "Mothbeans", N: 21.4, P: 48.0, K: 20.2, temp: 28.2, humidity: 53.2, ph: 6.8, rainfall: 51.2 },
+        { name: "Mungbean", N: 21.0, P: 47.3, K: 19.9, temp: 28.5, humidity: 85.5, ph: 6.7, rainfall: 48.4 },
+        { name: "Muskmelon", N: 100.3, P: 17.7, K: 50.1, temp: 28.7, humidity: 92.3, ph: 6.4, rainfall: 24.7 },
+        { name: "Orange", N: 19.6, P: 16.6, K: 10.0, temp: 22.8, humidity: 92.2, ph: 7.0, rainfall: 110.5 },
+        { name: "Papaya", N: 49.9, P: 59.1, K: 50.0, temp: 33.7, humidity: 92.4, ph: 6.7, rainfall: 142.6 },
+        { name: "Pigeonpeas", N: 20.7, P: 67.7, K: 20.3, temp: 27.7, humidity: 48.1, ph: 5.8, rainfall: 149.5 },
+        { name: "Pomegranate", N: 18.9, P: 18.8, K: 40.2, temp: 21.8, humidity: 90.1, ph: 6.4, rainfall: 107.5 },
+        { name: "Rice", N: 79.9, P: 47.6, K: 39.9, temp: 23.7, humidity: 82.3, ph: 6.4, rainfall: 236.2 },
+        { name: "Watermelon", N: 99.4, P: 17.0, K: 50.2, temp: 25.6, humidity: 85.2, ph: 6.5, rainfall: 50.8 }
+      ];
+
+      const WEIGHTS = { N: 37.0, P: 33.0, K: 50.0, temp: 5.0, humidity: 22.0, ph: 0.8, rainfall: 55.0 };
+
       let recCrop = "Rice";
-      if (rainfall > 180 && temp > 20 && humidity > 70) {
-        recCrop = "Rice";
-      } else if (rainfall > 150 && temp > 22) {
-        recCrop = "Jute";
-      } else if (temp > 25 && humidity > 70 && rainfall > 100) {
-        recCrop = "Papaya";
-      } else if (k > 50 && temp > 20 && humidity > 80) {
-        recCrop = "Banana";
-      } else if (temp >= 18 && temp <= 32 && rainfall >= 60 && n >= 50) {
-        recCrop = "Maize";
-      } else if (temp < 22 && rainfall < 120) {
-        recCrop = "Wheat";
-      } else if (n < 45 && p > 35) {
-        recCrop = "Chickpea";
-      } else if (k > 40 && p > 35) {
-        recCrop = "Cotton";
-      } else {
-        recCrop = "Maize";
-      }
+      let minDistance = Infinity;
+
+      CROP_DATASET_PROFILES.forEach((cp) => {
+        const dN = (n - cp.N) / WEIGHTS.N;
+        const dP = (p - cp.P) / WEIGHTS.P;
+        const dK = (k - cp.K) / WEIGHTS.K;
+        const dTemp = (temp - cp.temp) / WEIGHTS.temp;
+        const dHum = (humidity - cp.humidity) / WEIGHTS.humidity;
+        const dPh = (ph - cp.ph) / WEIGHTS.ph;
+        const dRain = (rainfall - cp.rainfall) / WEIGHTS.rainfall;
+
+        const dist = dN * dN + dP * dP + dK * dK + dTemp * dTemp + dHum * dHum + dPh * dPh + dRain * dRain;
+        if (dist < minDistance) {
+          minDistance = dist;
+          recCrop = cp.name;
+        }
+      });
 
       renderSuccess({
         recommended_crop: recCrop,
