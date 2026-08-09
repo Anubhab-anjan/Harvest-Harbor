@@ -3,6 +3,18 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/cart",
+      "destination": "/frontend/cart.html"
+    },
+    {
+      "source": "/cart.html",
+      "destination": "/frontend/cart.html"
+    },
+    {
+      "source": "/index.html",
+      "destination": "/frontend/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/frontend/$1"
     }

@@ -8,6 +8,7 @@ let selectedPaymentMethod = "upi";
 
 document.addEventListener("DOMContentLoaded", function () {
   loadCartFromStorage();
+  renderCartPage();
   // Scroll Reveal Observer
   const cartCards = document.querySelectorAll(".cart-section-card");
   cartCards.forEach((c) => c.classList.add("reveal-on-scroll"));
