@@ -1,14 +1,14 @@
-# 🌾 Harvest Harbor - Next-Gen Smart Agriculture Platform
+# Harvest Harbor - Next-Gen Smart Agriculture Platform
 
 [![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://harvest-harbor.vercel.app/)
 
-🔗 **Live Web Application**: [https://harvest-harbor.vercel.app/](https://harvest-harbor.vercel.app/)
+**Live Web Application**: [https://harvest-harbor.vercel.app/](https://harvest-harbor.vercel.app/)
 
 Welcome to **Harvest Harbor**, an end-to-end smart agriculture ecosystem empowering modern farmers through machine learning, computer vision, and precision agronomy tools.
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 The repository is structured into a clean, modular full-stack architecture:
 
@@ -44,7 +44,7 @@ Harvest-Harbor-main/
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### 1. Install Backend Dependencies
 Ensure Python 3.10+ is installed on your system.
@@ -74,7 +74,7 @@ Open `frontend/index.html` in your web browser or serve it using any HTTP static
 
 ---
 
-## ⚡ ML REST API Endpoints
+## ML REST API Endpoints
 
 | Endpoint | Method | Input Parameters | Output Response |
 | :--- | :--- | :--- | :--- |
@@ -86,7 +86,7 @@ Open `frontend/index.html` in your web browser or serve it using any HTTP static
 
 ---
 
-## 🌟 Key Features & AI Suite
+## Key Features & AI Suite
 1. **Plant Disease Detection**: Neural network diagnosis of leaf lesions, fungal infections, and pathogens with treatment guides.
 2. **Smart Crop Recommendation**: Soil chemical parameter analysis (NPK, pH, rainfall) predicting maximum yield suitability.
 3. **Harvest Yield Forecasting**: Historical weather & acreage regression model predicting harvest output in Quintals.
