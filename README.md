@@ -1,5 +1,9 @@
 # 🌾 Harvest Harbor - Next-Gen Smart Agriculture Platform
 
+[![Live Demo](https://img.shields.io/badge/Vercel-Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://harvest-harbor.vercel.app/)
+
+🔗 **Live Web Application**: [https://harvest-harbor.vercel.app/](https://harvest-harbor.vercel.app/)
+
 Welcome to **Harvest Harbor**, an end-to-end smart agriculture ecosystem empowering modern farmers through machine learning, computer vision, and precision agronomy tools.
 
 ---
